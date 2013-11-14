@@ -1,0 +1,29 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}{{ object.account.name }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+  <header>
+    <h1>{{ object.account.name }}</h1>
+  </header>
+
+  <section class="main-content">
+    <section class="content config">
+      <h4 class="heading-main">{% if object %}Edit{% else %}Add{% endif %} user</h4>
+
+      <form action="{{ request.path }}" method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        <fieldset>
+          <ul>
+            {{ form.as_ul }}
+            <li class="controls">
+              <input type="submit" value="Confirm" class="button highlight" />
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </section>
+  </section>
+
+{% endblock %}

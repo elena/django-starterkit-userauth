@@ -1,0 +1,66 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}Users - {{ block.super }}{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+
+  {% if page_obj.paginator.num_pages > 1 %}
+    {% if page_obj.has_previous %}<link rel="prev" href="{% if page_obj.previous_page_number == 1 %}{% url "accounts:user_list" %}{% else %}{% url "accounts:paginated_user_list" page=page_obj.previous_page_number %}{% endif %}" />{% endif %}
+    {% if page_obj.has_next %}<link rel="next" href="{% url "accounts:paginated_user_list" page=page_obj.next_page_number %}" />{% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <header>
+    <h1>Users</h1>
+  </header>
+
+  <section class="main-content">
+    <section class="content">
+      <section class="list">
+
+        <header>
+          <ul class="actions">
+            <li><a href="{% url "accounts:user_add" %}" class="button primary">Add New User</a></li>
+          </ul>
+        </header>
+
+        {% for user in user_list %}
+          {% if forloop.first %}
+            <table>
+              <thead>
+                <tr><th>User</th><th>Name</th><th>Groups</th><th>Active</th><th></th></tr>
+              </thead>
+              <tbody>
+          {% endif %}
+                <tr>
+                  <td><a href="{% url "accounts:user_edit" pk=user.pk %}">{{ user }}</a></td>
+                  <td>{{ user.get_full_name }}</td>
+                  <td>{% for group in user.groups.all %}<span class="label">{{ group }}</span> {% endfor %}</td>
+                  <td><i class="{{ user.is_active|yesno:"icon-ok,icon-remove" }}"></i></td>
+                </tr>
+          {% if forloop.last %}
+              </tbody>
+            </table>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.paginator.num_pages > 1 %}
+        <footer>
+          <div class="pagination">
+            <ul class="actions">
+              <li>{% if page_obj.has_previous %}<a href="{% if page_obj.previous_page_number == 1 %}{% url "accounts:user_list" %}{% else %}{% url "accounts:paginated_user_list" page=page_obj.previous_page_number %}{% endif %}" rel="previous" class="button">Previous</a>{% else %}<span class="button disabled">Prev</span>{% endif %}</li>
+              <li>{% if page_obj.has_next %}<li><a href="{% url "accounts:paginated_user_list" page_obj.next_page_number %}" rel="next" class="button">Next</a>{% else %}<span class="button disabled">Next</span>{% endif %}</li>
+            </ul>
+            <span class="results">Results {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
+          </div>
+        </footer>
+        {% endif %}
+
+      </section>
+    </section>
+  </section>
+
+{% endblock %}

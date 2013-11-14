@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  </head>
+
+  <body>
+    {% if user.is_authenticated %}
+      Logged in as: {{ user }}
+    {% else %}
+      Not logged in.
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

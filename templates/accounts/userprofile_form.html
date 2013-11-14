@@ -1,0 +1,32 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}{{ request.user }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+  <header>
+    <h1>{{ request.user }}</h1>
+    <ul class="actions">
+      <li><a href="{% url "accounts:password_change" %}" class="button">Change password</a></li>
+    </ul>
+  </header>
+
+  <section class="main-content">
+    <section class="content config">
+      <h4 class="heading-main">Edit user profile</h4>
+
+      <form action="{{ request.path }}" method="post"{% if form.is_multipart or attachment_formset.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        <fieldset>
+          <ul>
+            {{ form.as_ul }}
+            <li class="controls">
+              <input type="submit" value="Confirm" class="button highlight" />
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </section>
+  </section>
+
+{% endblock %}
