@@ -5,7 +5,7 @@
 .Python
 .DS_Store
 /.vagrant/
-/development.db
+/db.sqlite3
 /docs/_build/
 /bin/
 /build/
