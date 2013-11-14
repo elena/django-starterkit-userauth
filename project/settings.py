@@ -80,3 +80,75 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# ------------------------------------------
+# *** CUSTOM settings
+# ------------------------------------------
+
+import os
+from os.path import join
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+DJANGO_APPS = INSTALLED_APPS + (
+)
+
+THIRD_PARTY_APPS = (
+    'south',
+    'debug_toolbar',
+)
+
+LOCAL_APPS = (
+    'accounts',
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+TEMPLATE_DIRS = (
+    join(BASE_DIR, 'templates'),
+)
+
+
+# Media files
+
+MEDIA_ROOT = join(BASE_DIR, 'public/media')
+MEDIA_URL = '/media/'
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_ROOT = join(BASE_DIR, 'public/static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    join(BASE_DIR, 'static'),
+)
+
+
+# Sites framework
+
+SITE_ID = 1
+
+
+# Email
+
+DEFAULT_FROM_EMAIL = 'project@example.com'
+EMAIL_SUBJECT_PREFIX = '[project] '
+SERVER_EMAIL = 'project@example.com'
+
+
+# Authentication
+
+AUTH_USER_MODEL = 'accounts.Profile'
+# LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
+
+
+if DEBUG:
+    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
+    INTERNAL_IPS = ('127.0.0.1',)
+    INTERCEPT_REDIRECTS = False
