@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+  <strong>Login/Logout</strong><br>
+  <a href="user/login">user/login</a><br>
+  <a href="user/logout">user/logout</a><br>
+</p>
+
+<p>
+  <strong>Create/Edit Profile</strong><br>
+  <a href="user/register">user/register</a><br>
+  <a href="user/edit">user/edit</a><br>
+</p>
+
+<p>
+  <strong>Password</strong><br>
+  <a href="user/password/change/">user/password/change/</a><br>
+  <a href="user/password/reset/">user/password/reset/</a><br>
+</p>
+
+<p>
+user/password/change/complete<br>
+user/password/reset/sent<br>
+user/password/reset/&lt;uidb36&gt;-&lt;token&gt;<br>
+user/password/reset/complete<br>
+</p>
+
+<p>
+  <a href="admin/">admin/</a><br>
+</p>
+{% endblock %}
+
