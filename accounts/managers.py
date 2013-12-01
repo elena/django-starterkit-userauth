@@ -15,5 +15,7 @@ class ProfileManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         """Creates and saves a user with ``is_superuser`` set to ``True```."""
-        return self.create_user(email, password, is_superuser=True,
+        return self.create_user(email, password,
+                                is_superuser=True,
+                                is_staff=True,
                                 **extra_fields)
