@@ -7,13 +7,14 @@ from accounts.managers import ProfileManager
 
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    """Customised user model."""
+    """Customised user model.
+    """
 
     email = models.EmailField('email address', max_length=254, unique=True)
     """ Email to be used as username. """
 
     casual_name = models.CharField(max_length=254, blank=True, default='')
-    """ Name used for casual and often reference,
+    """ Name used for casual and often reference.
 
     Example: "Hi there [casual_name]!"
     """
@@ -49,9 +50,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         return super(Profile, self).save(**kwargs)
 
     def email_user(self, subject, message, from_email=None):
+        """ Sends an email to this User.
         """
-        Sends an email to this User.
-        """
+
         send_mail(subject, message, from_email, [self.email])
-
-

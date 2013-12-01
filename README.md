@@ -58,9 +58,21 @@ Add the following to your 'settings.py':
     #LOGIN_REDIRECT_URL = '/' ## Can add if you want.
 
 
+Add `url(.., include('accounts.urls'))` to `urls.py`, eg:
+
+    urlpatterns = patterns('',
+        ...
+        ## Custom user models
+        url(r'^profile/', include('accounts.urls')),
+        ...
+    )
+
+
+
 Modify `/accounts/models.py` to meet your needs. There is a bunch of handy stuff there but you can modify/delete however you'd like, eg:
 
-
+    class Profile(..):
+        ...
         email = models.EmailField('email address', max_length=254, unique=True)
         """ Email to be used as username. """
         ...
