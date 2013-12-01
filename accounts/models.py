@@ -49,6 +49,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
             self.updated_by = user
         return super(Profile, self).save(**kwargs)
 
+    def get_short_name(self):
+        """ Required by admin.
+        """
+        return self.casual_name
+
     def email_user(self, subject, message, from_email=None):
         """ Sends an email to this User.
         """
