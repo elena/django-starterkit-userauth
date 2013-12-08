@@ -3,7 +3,10 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib import messages
 from django.contrib.auth import views as auth
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from django.shortcuts import redirect
 from accounts.forms import AuthenticationForm
 
@@ -85,3 +88,26 @@ def password_reset_complete(request, *args, **kwargs):
     return auth.password_reset_complete(request, *args, **kwargs)
 
 
+class LoginRequiredMixin(object):
+
+    account = None
+    required_permissions = None
+
+    @method_decorator(never_cache)
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+
+        if request.user.has_perms(self.required_permissions):
+            return super(LoginRequiredMixin, self).dispatch(
+                request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super(LoginRequiredMixin, self).get_context_data(
+            *args, **kwargs)
+        context_data.update({'account': self.get_account()})
+        return context_data
+
+    def get_account(self):
+        return self.request.user.account
