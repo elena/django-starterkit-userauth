@@ -93,6 +93,8 @@ This is an imperfect solution (as frozen versions of the migrations are modified
 Django migrations are changing rapidly in the next version so hopefully this will be repaired and this script will no longer be necessary.
 
 
+Another solution is to write custom migration rules as is documented here: [http://www.caktusgroup.com/blog/2013/08/07/migrating-custom-user-model-django/](http://www.caktusgroup.com/blog/2013/08/07/migrating-custom-user-model-django/)
+
 ---
 
 ### The Process
