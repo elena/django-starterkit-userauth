@@ -80,6 +80,19 @@ Modify `/accounts/models.py` to meet your needs. There is a bunch of handy stuff
         ...
 
 
+#### IMPORTANT! Note about Migrations
+
+IMPORTANT: Custom user model + Migrations *do not play well together*
+
+The script below *modifies your migrations* in order for them to work with custom user models:
+
+[https://github.com/elena/scripts.elena.github.io/blob/master/_posts/django/migrate_auth-replace/script.py](https://github.com/elena/scripts.elena.github.io/blob/master/_posts/django/migrate_auth-replace/script.py)
+
+This is an imperfect solution (as frozen versions of the migrations are modified to being more general therefore less accurate).
+
+Django migrations are changing rapidly in the next version so hopefully this will be repaired and this script will no longer be necessary.
+
+
 ---
 
 ### The Process
